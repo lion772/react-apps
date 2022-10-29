@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Card from "../Card/Card";
+import Card from "../UI/Card";
 import ExpenseItem from "./ExpenseItem/ExpenseItem";
 import styles from "./Expenses.module.css";
 

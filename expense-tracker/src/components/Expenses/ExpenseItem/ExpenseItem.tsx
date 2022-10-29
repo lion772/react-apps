@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Card from "../../Card/Card";
+import Card from "../../UI/Card";
 import ExpenseDate from "./ExpenseDate";
 import style from "./ExpenseItem.module.css";
 
@@ -13,16 +13,14 @@ const ExpenseItem: FC<IExpenseProps> = ({
     date,
     title,
     amount,
-}): JSX.Element => {
-    return (
-        <Card className={style.ExpenseItem}>
-            <div className={style.ExpenseItem__description}>
-                <ExpenseDate date={date} />
-                <h2>{title}</h2>
-                <div className={style.ExpenseItem__price}>${amount}</div>
-            </div>
-        </Card>
-    );
-};
+}): JSX.Element => (
+    <Card className={style.ExpenseItem}>
+        <div className={style.ExpenseItem__description}>
+            <ExpenseDate date={date} />
+            <h2>{title}</h2>
+            <div className={style.ExpenseItem__price}>${amount}</div>
+        </div>
+    </Card>
+);
 
 export default ExpenseItem;
