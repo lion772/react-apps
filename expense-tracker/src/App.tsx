@@ -34,7 +34,7 @@ function App() {
         <>
             <NavBar />
             <ExpenseItem
-                date={String(expenses[0].date)}
+                date={expenses[0].date}
                 title={expenses[0].title}
                 amount={String(expenses[0].amount)}
             />

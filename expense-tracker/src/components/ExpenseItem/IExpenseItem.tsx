@@ -1,5 +1,5 @@
 interface IExpenseProps {
-    date: string;
+    date: Date;
     title: string;
     amount: string;
 }
