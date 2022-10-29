@@ -1,7 +1,8 @@
 import "./App.css";
 import NavBar from "./components/navbar/navbar";
-import ExpenseItem from "./components/ExpenseItem/ExpenseItem";
-import ExpenseDate from "./components/ExpenseItem/ExpenseDate";
+import ExpenseItem from "./components/Expenses/ExpenseItem/ExpenseItem";
+import ExpenseDate from "./components/Expenses/ExpenseItem/ExpenseDate";
+import Expenses from "./components/Expenses/Expenses";
 
 function App() {
     const expenses = [
@@ -34,11 +35,7 @@ function App() {
     return (
         <>
             <NavBar />
-            <ExpenseItem
-                date={expenses[0].date}
-                title={expenses[0].title}
-                amount={String(expenses[0].amount)}
-            />
+            <Expenses expenses={expenses} />
         </>
     );
 }
