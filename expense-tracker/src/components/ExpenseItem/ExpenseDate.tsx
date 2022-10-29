@@ -1,4 +1,5 @@
 import { FC } from "react";
+import classes from "./ExpenseDate.module.css";
 
 interface IExpenseDate {
     date: Date;
@@ -11,10 +12,10 @@ const ExpenseDate: FC<IExpenseDate> = ({ date }): JSX.Element => {
 
     return (
         <>
-            <div>
-                <div>Year: {year}</div>
-                <div>Month: {month}</div>
-                <div>Day: {day}</div>
+            <div className={classes.ExpenseDate}>
+                <div> {year}</div>
+                <div> {month}</div>
+                <div> {day}</div>
             </div>
         </>
     );

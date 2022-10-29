@@ -1,6 +1,7 @@
 import "./App.css";
 import NavBar from "./components/navbar/navbar";
 import ExpenseItem from "./components/ExpenseItem/ExpenseItem";
+import ExpenseDate from "./components/ExpenseItem/ExpenseDate";
 
 function App() {
     const expenses = [
