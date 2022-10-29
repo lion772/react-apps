@@ -1,13 +1,21 @@
+import { FC } from "react";
 import style from "./ExpenseItem.module.css";
+import IExpenseProps from "./IExpenseItem";
 
-const ExpenseItem = () => (
-    <div className={style.ExpenseItem}>
-        <div>March 28th 2021</div>
-        <div className={style.ExpenseItem__description}>
-            <h2>Car Insurance</h2>
-            <div className={style.ExpenseItem__price}>$294.67</div>
+const ExpenseItem: FC<IExpenseProps> = ({
+    date,
+    title,
+    amount,
+}): JSX.Element => {
+    return (
+        <div className={style.ExpenseItem}>
+            <div>{date}</div>
+            <div className={style.ExpenseItem__description}>
+                <h2>{title}</h2>
+                <div className={style.ExpenseItem__price}>${amount}</div>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default ExpenseItem;
