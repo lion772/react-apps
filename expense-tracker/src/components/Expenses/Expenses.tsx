@@ -26,6 +26,8 @@ const Expenses: FC<ExpensesProps> = ({ expenses }): JSX.Element => {
                 {expenses.map((expense) => {
                     return (
                         <ExpenseItem
+                            //set unique id per list item to help React identify the individual item
+                            key={expense.id}
                             date={expense.date}
                             title={expense.title}
                             amount={String(expense.amount)}

@@ -1,9 +1,10 @@
-import { FC, useState } from "react";
+import { FC, Key, useState } from "react";
 import Card from "../../UI/Card";
 import ExpenseDate from "./ExpenseDate";
 import style from "./ExpenseItem.module.css";
 
 interface IExpenseProps {
+    key: Key | null | undefined;
     date: Date;
     title: string;
     amount: string;
