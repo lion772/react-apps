@@ -3,6 +3,7 @@ import NavBar from "./components/navbar/navbar";
 import ExpenseItem from "./components/Expenses/ExpenseItem/ExpenseItem";
 import ExpenseDate from "./components/Expenses/ExpenseItem/ExpenseDate";
 import Expenses from "./components/Expenses/Expenses";
+import NewExpense from "./components/NewExpense/NewExpense";
 
 function App() {
     const expenses = [
@@ -35,6 +36,7 @@ function App() {
     return (
         <>
             <NavBar />
+            <NewExpense />
             <Expenses expenses={expenses} />
         </>
     );
