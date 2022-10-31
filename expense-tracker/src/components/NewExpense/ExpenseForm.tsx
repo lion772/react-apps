@@ -47,6 +47,11 @@ const ExpenseForm: FC<ExpenseFormProps> = () => {
             amount: amount,
         };
         console.log(expenseData);
+        //todo:logic after submit
+        
+        setTitle("");
+        setDate("");
+        setAmount("");
     };
 
     return (
@@ -56,6 +61,7 @@ const ExpenseForm: FC<ExpenseFormProps> = () => {
                     <label>Title</label>
                     <input
                         name="title"
+                        value={title}
                         type="text"
                         onChange={(e) => titleChangeHandler(e)}
                     />
@@ -64,6 +70,7 @@ const ExpenseForm: FC<ExpenseFormProps> = () => {
                     <label>Amount</label>
                     <input
                         name="amount"
+                        value={amount}
                         type="number"
                         min="0.01"
                         step="0.01"
@@ -74,6 +81,7 @@ const ExpenseForm: FC<ExpenseFormProps> = () => {
                     <label>Date</label>
                     <input
                         name="date"
+                        value={date}
                         type="date"
                         min="2019-01-01"
                         max="2024-12-31"
