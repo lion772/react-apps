@@ -1,9 +1,8 @@
 import React, { FC, useState } from "react";
+import IExpenseFunction from "./IExpenseFunction";
 import styles from "./NewExpense.module.css";
 
-interface ExpenseFormProps {}
-
-const ExpenseForm: FC<ExpenseFormProps> = () => {
+const ExpenseForm: FC<IExpenseFunction> = ({ getExpense }) => {
     const [title, setTitle] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [amount, setAmount] = useState<string>("");
@@ -46,16 +45,14 @@ const ExpenseForm: FC<ExpenseFormProps> = () => {
             date: new Date(date),
             amount: amount,
         };
-        console.log(expenseData);
-        //todo:logic after submit
-        
+        getExpense(expenseData);
         setTitle("");
         setDate("");
         setAmount("");
     };
 
     return (
-        <form onSubmit={(e) => submitHandler(e)}>
+        <form onSubmit={submitHandler}>
             <div className={styles.NewExpense__controls}>
                 <div className={styles.NewExpense__control}>
                     <label>Title</label>
@@ -63,7 +60,7 @@ const ExpenseForm: FC<ExpenseFormProps> = () => {
                         name="title"
                         value={title}
                         type="text"
-                        onChange={(e) => titleChangeHandler(e)}
+                        onChange={titleChangeHandler}
                     />
                 </div>
                 <div className={styles.NewExpense__control}>
@@ -74,7 +71,7 @@ const ExpenseForm: FC<ExpenseFormProps> = () => {
                         type="number"
                         min="0.01"
                         step="0.01"
-                        onChange={(e) => amountChangeHandler(e)}
+                        onChange={amountChangeHandler}
                     />
                 </div>
                 <div className={styles.NewExpense__control}>
@@ -85,7 +82,7 @@ const ExpenseForm: FC<ExpenseFormProps> = () => {
                         type="date"
                         min="2019-01-01"
                         max="2024-12-31"
-                        onChange={(e) => dateChangeHandler(e)}
+                        onChange={dateChangeHandler}
                     />
                 </div>
             </div>

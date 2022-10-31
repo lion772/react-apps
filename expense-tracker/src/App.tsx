@@ -1,12 +1,12 @@
 import "./App.css";
 import NavBar from "./components/navbar/navbar";
-import ExpenseItem from "./components/Expenses/ExpenseItem/ExpenseItem";
-import ExpenseDate from "./components/Expenses/ExpenseItem/ExpenseDate";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
+import { useState } from "react";
+import { ExpenseCreated } from "./ExpenseCreated";
 
 function App() {
-    const expenses = [
+    const expenses: ExpenseCreated[] = [
         {
             id: "e1",
             title: "Toilet Paper",
@@ -33,11 +33,23 @@ function App() {
         },
     ];
 
+    const [expensesUpToDate, setExpenses] =
+        useState<ExpenseCreated[]>(expenses);
+
+    const onAddExpense = (expenseCreated: ExpenseCreated) => {
+        expenses.push({
+            ...expenseCreated,
+            id: String(`e${expenses.length + 1}`),
+        });
+        setExpenses(expenses);
+        console.log(expensesUpToDate);
+    };
+
     return (
         <>
             <NavBar />
-            <NewExpense />
-            <Expenses expenses={expenses} />
+            <NewExpense getExpense={onAddExpense} />
+            <Expenses expenses={expensesUpToDate} />
         </>
     );
 }
