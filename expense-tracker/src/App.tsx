@@ -37,11 +37,13 @@ function App() {
         useState<ExpenseCreated[]>(expenses);
 
     const onAddExpense = (expenseCreated: ExpenseCreated) => {
-        expenses.push({
-            ...expenseCreated,
-            id: String(`e${expenses.length + 1}`),
-        });
-        setExpenses(expenses);
+        setExpenses([
+            ...expensesUpToDate,
+            {
+                ...expenseCreated,
+                id: String(`e${expensesUpToDate.length + 1}`),
+            },
+        ]);
         console.log(expensesUpToDate);
     };
 

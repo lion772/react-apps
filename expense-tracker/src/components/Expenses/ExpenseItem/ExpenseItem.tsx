@@ -14,16 +14,13 @@ const ExpenseItem: FC<IExpenseProps> = ({
     title,
     amount,
 }): JSX.Element => {
-    const [titleState, setTitle] = useState<string | null>(title);
-
     return (
         <Card className={style.ExpenseItem}>
             <div className={style.ExpenseItem__description}>
                 <ExpenseDate date={date} />
-                <h2>{titleState}</h2>
+                <h2>{title}</h2>
                 <div className={style.ExpenseItem__price}>${amount}</div>
             </div>
-            <button onClick={() => setTitle("New Title")}>Change Title</button>
         </Card>
     );
 };
