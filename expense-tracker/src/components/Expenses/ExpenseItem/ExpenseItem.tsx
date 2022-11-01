@@ -1,4 +1,4 @@
-import { FC, Key, useState } from "react";
+import { FC, Key } from "react";
 import Card from "../../UI/Card";
 import ExpenseDate from "./ExpenseDate";
 import style from "./ExpenseItem.module.css";

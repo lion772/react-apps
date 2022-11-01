@@ -1,8 +1,14 @@
 import React, { FC, useState } from "react";
-import IExpenseFunction from "./IExpenseFunction";
 import styles from "./NewExpense.module.css";
 
-const ExpenseForm: FC<IExpenseFunction> = ({ getExpense }) => {
+interface IExpenseFunction {
+    getExpense: Function;
+    expenseResult: Function;
+    expenseCanceled: Function;
+}
+
+const ExpenseForm: FC<IExpenseFunction> = (props) => {
+    const { getExpense, expenseResult, expenseCanceled } = props;
     const [title, setTitle] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [amount, setAmount] = useState<string>("");
@@ -47,6 +53,7 @@ const ExpenseForm: FC<IExpenseFunction> = ({ getExpense }) => {
             date: new Date(date),
         };
         getExpense(expenseData);
+        expenseResult(true);
         setTitle("");
         setDate("");
         setAmount("");
@@ -90,6 +97,7 @@ const ExpenseForm: FC<IExpenseFunction> = ({ getExpense }) => {
             <button className={`styles.NewExpense button`} type="submit">
                 Add new expense
             </button>
+            <button onClick={() => expenseCanceled(true)}>Cancel</button>
         </form>
     );
 };

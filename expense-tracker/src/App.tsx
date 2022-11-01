@@ -3,7 +3,9 @@ import NavBar from "./components/navbar/navbar";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 import { useState } from "react";
-import { ExpenseCreated } from "./ExpenseCreated";
+import { ExpenseCreated, IChart } from "./ExpenseCreated";
+import Chart from "./components/Chart/Chart";
+import ExpensesChart from "./components/Expenses/ExpensesChart/ExpensesChart";
 
 const expenses: ExpenseCreated[] = [
     {
@@ -44,7 +46,6 @@ function App() {
             },
             ...previousExpenses,
         ]);
-        console.log(expensesUpToDate[0].date.getFullYear());
     };
 
     return (
