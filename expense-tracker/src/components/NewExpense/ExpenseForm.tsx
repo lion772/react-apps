@@ -41,9 +41,10 @@ const ExpenseForm: FC<IExpenseFunction> = ({ getExpense }) => {
 
         //2° way of getting form data:
         const expenseData = {
+            id: "",
             title: title,
-            date: new Date(date),
             amount: amount,
+            date: new Date(date),
         };
         getExpense(expenseData);
         setTitle("");

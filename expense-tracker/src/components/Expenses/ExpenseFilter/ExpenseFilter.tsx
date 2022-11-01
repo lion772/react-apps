@@ -12,7 +12,6 @@ const ExpenseFilter: FC<ExpenseFilterProps> = ({
 }) => {
     const pickYearList = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
-        console.log(e.target.value);
         getYearPicklist(e.target.value);
     };
 

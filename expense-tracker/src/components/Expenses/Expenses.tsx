@@ -10,10 +10,37 @@ interface ExpensesProps {
 }
 
 const Expenses: FC<ExpensesProps> = ({ expenses }): JSX.Element => {
-    const [selectedYear, setPickYear] = useState<string>("2020");
+    const [selectedYear, setPickYear] = useState<string>("2021");
 
     const onChangeYear = (year: string) => {
         setPickYear(year);
+    };
+
+    const filteredExpenses = expenses.filter(
+        (expenseFiltered: ExpenseCreated) =>
+            expenseFiltered.date.getFullYear() === Number(selectedYear)
+    );
+
+    const noFilteredItem = (
+        <h3 className={styles.Expenses}>
+            There's no data to be displayed on the screen
+        </h3>
+    );
+
+    const filterListHandler = (filteredExpenses: ExpenseCreated[]) => {
+        return filteredExpenses.length > 0
+            ? filteredExpenses.map((expense: ExpenseCreated) => {
+                  return (
+                      <ExpenseItem
+                          //set unique id per list item to help React identify the individual item
+                          key={expense.id}
+                          date={expense.date}
+                          title={expense.title}
+                          amount={String(expense.amount)}
+                      />
+                  );
+              })
+            : noFilteredItem;
     };
 
     return (
@@ -23,17 +50,7 @@ const Expenses: FC<ExpensesProps> = ({ expenses }): JSX.Element => {
                     selectedYear={selectedYear}
                     getYearPicklist={onChangeYear}
                 />
-                {expenses.map((expense) => {
-                    return (
-                        <ExpenseItem
-                            //set unique id per list item to help React identify the individual item
-                            key={expense.id}
-                            date={expense.date}
-                            title={expense.title}
-                            amount={String(expense.amount)}
-                        />
-                    );
-                })}
+                {filterListHandler(filteredExpenses)}
             </Card>
         </>
     );

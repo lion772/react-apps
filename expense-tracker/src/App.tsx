@@ -44,6 +44,7 @@ function App() {
             },
             ...previousExpenses,
         ]);
+        console.log(expensesUpToDate[0].date.getFullYear());
     };
 
     return (
