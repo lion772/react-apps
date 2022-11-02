@@ -25,7 +25,9 @@ const Expenses: FC<ExpensesProps> = ({ expenses }): JSX.Element => {
     return (
         <>
             <Card className={styles.Expenses}>
-                <ExpensesChart expensesList={expenses}/>
+                <ExpensesChart
+                    expensesList={filteredExpenses}
+                />
                 <ExpenseFilter
                     selectedYear={selectedYear}
                     getYearPicklist={onChangeYear}
