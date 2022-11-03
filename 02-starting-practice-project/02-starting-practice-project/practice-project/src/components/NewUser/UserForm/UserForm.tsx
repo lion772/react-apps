@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import styles from "./UserForm.module.css";
+import Button from "../../UI/Button/Button";
 
 interface UserFormProps {
     getUserEntered: Function;
@@ -29,7 +30,7 @@ const UserForm: FC<UserFormProps> = ({ getUserEntered }) => {
     };
 
     return (
-        <form onSubmit={onSubmitHandler}>
+        <form>
             <div className={styles.UserForm}>
                 <div className={styles.UserForm__controls}>
                     <div className={styles.UserForm__control}>
@@ -51,7 +52,9 @@ const UserForm: FC<UserFormProps> = ({ getUserEntered }) => {
                         />
                     </div>
                 </div>
-                <button type="submit">Create User</button>
+                <Button type="submit" onClick={onSubmitHandler}>
+                    Create User
+                </Button>
             </div>
         </form>
     );
