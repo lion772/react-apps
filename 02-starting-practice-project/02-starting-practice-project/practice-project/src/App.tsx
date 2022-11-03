@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import IUsers from "./components/IUsers";
+import NewUser from "./components/NewUser/NewUser";
+import Users from "./components/Users/Users";
+import User from "./components/IUsers";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const users: User[] = [
+        {
+            id: "1",
+            username: "marcos",
+            age: 37,
+        },
+    ];
+
+    let [usersUpdated, setUsers] = useState<User[]>(users);
+
+    const addUserHandler = (user: IUsers) => {
+        setUsers((previousUsers): User[] => [
+            { ...user, id: String(previousUsers.length + 1) },
+            ...previousUsers,
+        ]);
+    };
+
+    return (
+        <>
+            <div className="App">
+                <NewUser getUser={addUserHandler} />
+                <Users users={usersUpdated} />
+            </div>
+        </>
+    );
 }
 
 export default App;

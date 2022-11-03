@@ -1,0 +1,52 @@
+.UsersItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    background-color: rgb(163, 206, 255);
+}
+
+.UsersItem__description {
+    flex-direction: column;
+    align-items: flex-end;
+    flex-flow: column-reverse;
+    justify-content: flex-start;
+    flex: 1;
+}
+
+.UsersItem h2 {
+    color: #3a3a3a;
+    font-size: 1rem;
+    flex: 1;
+    margin: 0 1rem;
+    color: white;
+}
+
+.UsersItem__price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #40005d;
+    border: 1px solid white;
+    padding: 0.5rem;
+    border-radius: 12px;
+}
+
+@media (min-width: 580px) {
+    .UsersItem__description {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        flex: 1;
+    }
+
+    .UsersItem__description h2 {
+        font-size: 1.25rem;
+    }
+
+    .UsersItem__price {
+        font-size: 1.25rem;
+        padding: 0.5rem 1.5rem;
+    }
+}
