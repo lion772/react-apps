@@ -1,8 +1,8 @@
-import React, { FC, MouseEventHandler, useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "./UserForm.module.css";
 import Button from "../../UI/Button/Button";
 import ErrorModal from "../../UI/Button/ErrorModal/ErrorModal";
-import Card from "../../Users/Card/Card";
+import Wrapper from "../../Helpers/Wrapper";
 
 interface UserFormProps {
     getUserEntered: Function;
@@ -48,7 +48,7 @@ const UserForm: FC<UserFormProps> = ({ getUserEntered }) => {
     );
 
     return (
-        <>
+        <Wrapper>
             {!isValid && showErrorModal}
 
             <div className={styles.input}>
@@ -82,7 +82,7 @@ const UserForm: FC<UserFormProps> = ({ getUserEntered }) => {
                     </div>
                 </form>
             </div>
-        </>
+        </Wrapper>
     );
 };
 

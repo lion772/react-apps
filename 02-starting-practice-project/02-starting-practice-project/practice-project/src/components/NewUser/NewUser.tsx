@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import Card from "../Users/Card/Card";
 import styles from "./NewUser.module.css";
 import UserForm from "./UserForm/UserForm";
 

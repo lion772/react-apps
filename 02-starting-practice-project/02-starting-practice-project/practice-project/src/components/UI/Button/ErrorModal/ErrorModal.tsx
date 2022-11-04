@@ -1,6 +1,4 @@
-import { fireEvent } from "@testing-library/react";
-import React, { FC, MouseEventHandler, useState } from "react";
-import Card from "../../../Users/Card/Card";
+import React, { FC, MouseEventHandler } from "react";
 import Button from "../Button";
 import styles from "./ErrorModal.module.css";
 
