@@ -9,6 +9,7 @@ interface ErrorModalProps {
     onClickHandler: MouseEventHandler<HTMLElement> | undefined;
 }
 
+//Backdrop and ModelOverlay components need to be created to be moved to the same level as id root
 const Backdrop = () => {
     return <div className={styles.backdrop}> </div>;
 };

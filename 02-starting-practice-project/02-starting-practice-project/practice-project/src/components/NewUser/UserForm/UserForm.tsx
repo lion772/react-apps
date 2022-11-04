@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import styles from "./UserForm.module.css";
 import Button from "../../UI/Button/Button";
 import ErrorModal from "../../UI/Button/ErrorModal/ErrorModal";
@@ -9,38 +9,44 @@ interface UserFormProps {
 }
 
 const UserForm: FC<UserFormProps> = ({ getUserEntered }) => {
-    const [usernameEntered, setUsername] = useState<string>("");
-    const [passwordEntered, setPassword] = useState<string>("");
+    const nameInputRef = useRef<HTMLInputElement>(null);
+    const ageInputRef = useRef<HTMLInputElement>(null);
+
+    const [error, setError] = useState<string>("");
     const [isValid, setIsValid] = useState<boolean>(true);
 
-    const onUsernameChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-        //console.log(e.currentTarget.value);
-        setUsername(e.currentTarget.value);
-    };
-    const onAgeChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-        //console.log(e.currentTarget.value);
-        setPassword(e.currentTarget.value);
-        setIsValid(true);
-    };
     const onSubmitHandler = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        console.log(usernameEntered, passwordEntered);
-        if (usernameEntered.length === 0 || passwordEntered.length === 0) {
+        const username = nameInputRef.current?.value;
+        const age = ageInputRef.current?.value;
+
+        if (age && +age < 1) {
             setIsValid(false);
+            setError("Please enter a valid age that is higher than zero.");
             return;
         }
+
+        if (username?.trim().length === 0 || age?.trim().length === 0) {
+            setIsValid(false);
+            setError(
+                "Invalid input - Please enter a valid name and age (non-empty values)."
+            );
+            return;
+        }
+
         getUserEntered({
-            username: usernameEntered,
-            age: Number(passwordEntered),
+            username: username,
+            age: Number(age),
         });
-        setUsername("");
-        setPassword("");
+
+        if (nameInputRef.current) nameInputRef.current.value = "";
+        if (ageInputRef.current) ageInputRef.current.value = "";
     };
 
     const showErrorModal = (
         <ErrorModal
             title="An error occured!"
-            message="Something went wrong."
+            message={error}
             onClickHandler={() => {
                 setIsValid(true);
             }}
@@ -59,20 +65,18 @@ const UserForm: FC<UserFormProps> = ({ getUserEntered }) => {
                                 <label htmlFor="username">Username</label>
                                 <input
                                     className={styles.UserForm__input}
-                                    value={usernameEntered}
                                     name="username"
                                     type="text"
-                                    onChange={onUsernameChangeHandler}
+                                    ref={nameInputRef}
                                 />
                             </div>
                             <div className={styles.UserForm__control}>
                                 <label htmlFor="password">Age</label>
                                 <input
                                     className={`${styles.UserForm__control} input`}
-                                    value={passwordEntered}
                                     name="password"
                                     type="number"
-                                    onChange={onAgeChangeHandler}
+                                    ref={ageInputRef}
                                 />
                             </div>
                         </div>
