@@ -1,13 +1,13 @@
 import React, { FC } from "react";
+import Card from "../Users/Card/Card";
 import styles from "./NewUser.module.css";
 import UserForm from "./UserForm/UserForm";
 
 interface NewUserProps {
-  getUser: Function;
+    getUser: Function;
 }
 
-const NewUser: FC<NewUserProps> = ({getUser}) => {
-
+const NewUser: FC<NewUserProps> = ({ getUser }) => {
     return (
         <div className={styles.NewUser}>
             <UserForm getUserEntered={getUser} />

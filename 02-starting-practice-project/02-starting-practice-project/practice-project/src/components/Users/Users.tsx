@@ -15,7 +15,7 @@ const Users: FC<UsersProps> = ({ users }) => {
             <UsersItem key={user.id} username={user.username} age={user.age} />
         );
     });
-    return <Card className={styles.Users}>{iterateOverUsers}</Card>;
+    return <div className={styles.Users}>{iterateOverUsers}</div>;
 };
 
 export default Users;

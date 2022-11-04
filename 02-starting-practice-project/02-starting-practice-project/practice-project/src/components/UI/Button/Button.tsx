@@ -4,7 +4,7 @@ import styles from "./Button.module.css";
 interface ButtonProps {
     children: any;
     type: any;
-    onClick: MouseEventHandler<HTMLElement>;
+    onClick: MouseEventHandler<HTMLElement> | undefined;
 }
 
 const Button: FC<ButtonProps> = ({ children, type, onClick }) => {

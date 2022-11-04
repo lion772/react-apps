@@ -9,12 +9,12 @@ interface UsersItemProps {
 }
 
 const UsersItem: FC<UsersItemProps> = ({ username, age }) => (
-    <Card className={styles.UsersItem}>
+    <div className={styles.UsersItem}>
         <div className={styles.UsersItem__description}>
             <h3>{username[0].toUpperCase() + username.slice(1)}</h3>
             <p>{age} years old</p>
         </div>
-    </Card>
+    </div>
 );
 
 export default UsersItem;
