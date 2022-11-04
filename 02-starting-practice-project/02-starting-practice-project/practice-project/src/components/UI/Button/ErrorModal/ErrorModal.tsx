@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler } from "react";
+import React, { FC, Fragment, MouseEventHandler } from "react";
 import Button from "../Button";
 import styles from "./ErrorModal.module.css";
 
@@ -8,13 +8,17 @@ interface ErrorModalProps {
     onClickHandler: MouseEventHandler<HTMLElement> | undefined;
 }
 
-const ErrorModal: FC<ErrorModalProps> = ({
+const Backdrop = () => {
+    return <div className={styles.backdrop}> </div>;
+};
+
+const ModalOverlay: FC<ErrorModalProps> = ({
     title,
     message,
     onClickHandler,
 }) => {
     return (
-        <div className={styles.backdrop}>
+        <>
             <div className={styles.modal}>
                 <div className={styles.header}>
                     <h2>{title}</h2>
@@ -30,7 +34,24 @@ const ErrorModal: FC<ErrorModalProps> = ({
                     </Button>
                 </footer>
             </div>
-        </div>
+        </>
+    );
+};
+
+const ErrorModal: FC<ErrorModalProps> = ({
+    title,
+    message,
+    onClickHandler,
+}) => {
+    return (
+        <Fragment>
+            <Backdrop />
+            <ModalOverlay
+                title={title}
+                message={message}
+                onClickHandler={onClickHandler}
+            />
+        </Fragment>
     );
 };
 
