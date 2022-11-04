@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 
 interface WrapperProps {
-    children: any;
+    children: ReactNode;
 }
 
 const Wrapper: FC<WrapperProps> = ({ children }) => <>{children}</>;

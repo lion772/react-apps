@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import styles from "./Card.module.css";
 
 interface CardProps {
-    children: any;
+    children: ReactNode;
     className: string;
 }
 

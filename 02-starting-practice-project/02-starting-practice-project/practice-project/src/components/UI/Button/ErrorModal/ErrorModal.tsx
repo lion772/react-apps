@@ -1,4 +1,5 @@
 import React, { FC, Fragment, MouseEventHandler } from "react";
+import ReactDOM from "react-dom";
 import Button from "../Button";
 import styles from "./ErrorModal.module.css";
 
@@ -16,7 +17,7 @@ const ModalOverlay: FC<ErrorModalProps> = ({
     title,
     message,
     onClickHandler,
-}) => {
+}): JSX.Element => {
     return (
         <>
             <div className={styles.modal}>
@@ -45,12 +46,18 @@ const ErrorModal: FC<ErrorModalProps> = ({
 }) => {
     return (
         <Fragment>
-            <Backdrop />
-            <ModalOverlay
-                title={title}
-                message={message}
-                onClickHandler={onClickHandler}
-            />
+            {ReactDOM.createPortal(
+                <Backdrop />,
+                document.querySelector("#backdrop-root") as Element
+            )}
+            {ReactDOM.createPortal(
+                <ModalOverlay
+                    title={title}
+                    message={message}
+                    onClickHandler={onClickHandler}
+                />,
+                document.getElementById("overlay-root") as HTMLElement
+            )}
         </Fragment>
     );
 };
