@@ -6,7 +6,7 @@ import styles from "./ForwardCounter.module.css";
 interface ForwardCounterProps {}
 
 const ForwardCounter: FC<ForwardCounterProps> = () => {
-    const counter = useCounter();
+    const counter = useCounter(true);
     return <Card>{counter}</Card>;
 };
 

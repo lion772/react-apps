@@ -6,8 +6,7 @@ import styles from "./BackwardCounter.module.css";
 interface BackwardCounterProps {}
 
 const BackwardCounter: FC<BackwardCounterProps> = () => {
-    const counter = -useCounter();
-
+    const counter = useCounter(false);
     return <Card>{counter}</Card>;
 };
 
