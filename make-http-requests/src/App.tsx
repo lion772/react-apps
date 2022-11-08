@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import "./App.css";
 import MoviesList from "./components/MoviesList/MoviesList";
 
@@ -9,14 +9,14 @@ type MovieAPI = {
     release_date: string;
 };
 
-const API_FILMS = "https://swapi.dev/api/filmss";
+const API_FILMS = "https://swapi.dev/api/films";
 
 const App: FC = () => {
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>();
 
-    async function fetchMoviesHandler() {
+    const fetchMoviesHandler = useCallback(async () => {
         setIsLoading(true);
         setError(null);
 
@@ -42,7 +42,11 @@ const App: FC = () => {
         }
 
         setIsLoading(false);
-    }
+    }, []);
+
+    useEffect(() => {
+        fetchMoviesHandler();
+    }, [fetchMoviesHandler]);
 
     let content = <p>Found no movies.</p>;
 
@@ -63,3 +67,10 @@ const App: FC = () => {
 };
 
 export default App;
+
+
+/* useCallback is mostly used when you don't want a function to get un-necessarily created each time on every render and subsequent re-renders of the component.
+
+Remember that useCallback will always return the same instance of the function on re-renders unlike normal functions where they are recreated with each re-render of the component. The useCallback would refresh only when there is a change in dependencies.
+
+The second argument of useCallback refers to the dependencies which would trigger a re-initialization of the function defined inside useCallback if those dependencies change. */
