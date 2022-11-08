@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Movie, { MovieProps } from "./Movie/Movie";
 import styles from "./MoviesList.module.css";
 
-interface MoviesListProps {
+export interface MoviesListProps {
     movies: MovieProps[];
 }
 

@@ -1,5 +1,7 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
 import "./App.css";
+import AddMovie from "./components/AddMovie/AddMovie";
+import { MovieProps } from "./components/MoviesList/Movie/Movie";
 import MoviesList from "./components/MoviesList/MoviesList";
 
 type MovieAPI = {
@@ -9,10 +11,13 @@ type MovieAPI = {
     release_date: string;
 };
 
-const API_FILMS = "https://swapi.dev/api/films";
+const URL_FIREBASE =
+    "https://react-http-movies-feb4c-default-rtdb.firebaseio.com";
+
+const API_FILMS = `${URL_FIREBASE}/movies.json`;
 
 const App: FC = () => {
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState<any>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>();
 
@@ -25,17 +30,25 @@ const App: FC = () => {
             if (response.status !== 200) {
                 throw new Error("Something went wrong!");
             }
-            const { results } = await response.json();
-            const transformedMovies = results.map((movie: MovieAPI) => {
+            const data = await response.json();
+
+            const transformedMovies = [];
+            let counter = 0;
+            for (const key in data) {
+                transformedMovies.push({ id: counter, ...data[key] });
+                counter++;
+            }
+
+            /* const transformedMovies = data.results.map((movie: MovieAPI) => {
+                console.log(movie);
                 return {
-                    id: movie.episode_id,
+                    id: movies.lenght + 1,
                     title: movie.title,
                     openingText: movie.opening_crawl,
                     releaseDate: movie.release_date,
                 };
-            });
+            }); */
 
-            console.log(transformedMovies);
             setMovies(transformedMovies);
         } catch (e) {
             setError((e as Error).message);
@@ -48,6 +61,27 @@ const App: FC = () => {
         fetchMoviesHandler();
     }, [fetchMoviesHandler]);
 
+    const addMovieHandler = async (movie: MovieProps) => {
+        /*  setMovies((previousState: any) => [
+            { ...movie, id: movies.length + 1 },
+            ...previousState,
+        ]); */
+
+        const response = await fetch(API_FILMS, {
+            method: "POST",
+            body: JSON.stringify(movie),
+            headers: {
+                //Describe the content that will be sent.
+                "Content-Type": "application/json",
+            },
+        });
+
+        const data = await response.json();
+        console.log(data);
+
+        fetchMoviesHandler();
+    };
+
     let content = <p>Found no movies.</p>;
 
     if (movies.length > 0) content = <MoviesList movies={movies} />;
@@ -59,15 +93,15 @@ const App: FC = () => {
     return (
         <>
             <section>
-                <button onClick={fetchMoviesHandler}>Fetch movies!</button>
+                <AddMovie onAddMovie={addMovieHandler} />
             </section>
+
             <section>{content}</section>
         </>
     );
 };
 
 export default App;
-
 
 /* useCallback is mostly used when you don't want a function to get un-necessarily created each time on every render and subsequent re-renders of the component.
 

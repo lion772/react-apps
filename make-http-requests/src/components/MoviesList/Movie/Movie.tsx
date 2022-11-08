@@ -3,9 +3,9 @@ import styles from "./Movie.module.css";
 
 export interface MovieProps {
     id?: string | undefined;
-    title: string;
-    releaseDate: string;
-    openingText: string;
+    title?: string | undefined;
+    releaseDate?: string | undefined;
+    openingText?: string | undefined;
 }
 
 const Movie: FC<MovieProps> = (props) => (
