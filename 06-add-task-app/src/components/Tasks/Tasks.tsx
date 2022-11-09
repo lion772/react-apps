@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+import React, { FC, MouseEventHandler } from "react";
+import Section from "../UI/Section/Section";
 import TaskItem from "./TaskItem/TaskItem";
 import styles from "./Tasks.module.css";
 
@@ -24,10 +25,10 @@ const Tasks: FC<TasksProps> = (props) => {
         );
     }
 
-    let content = taskList;
+    let content: any = taskList;
 
     if (props.error) {
-        content = <button onClick={props.onFetch}>Try again</button>;
+        content = <button onClick={() => props.onFetch}>Try again</button>;
     }
 
     if (props.loading) {
@@ -36,7 +37,7 @@ const Tasks: FC<TasksProps> = (props) => {
 
     return (
         <Section>
-            <div className={classes.container}>{content}</div>
+            <div className={styles.container}>{content}</div>
         </Section>
     );
 };
