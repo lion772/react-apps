@@ -6,8 +6,10 @@ interface TaskFormProps {
     onEnterTask: (taskText: string) => void;
 }
 
+type TaskRef = HTMLInputElement | null;
+
 const TaskForm: FC<TaskFormProps> = (props) => {
-    const taskInputRef = useRef<HTMLInputElement>(null);
+    let taskInputRef = useRef<TaskRef>(null);
 
     const submitHandler = (event: { preventDefault: () => void }) => {
         event.preventDefault();
@@ -16,6 +18,7 @@ const TaskForm: FC<TaskFormProps> = (props) => {
 
         if (enteredValue && enteredValue.trim().length > 0) {
             props.onEnterTask(enteredValue);
+            //taskInputRef.current?.value = "";
         }
     };
 

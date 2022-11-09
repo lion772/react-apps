@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler } from "react";
+import React, { FC } from "react";
 import Section from "../UI/Section/Section";
 import TaskItem from "./TaskItem/TaskItem";
 import styles from "./Tasks.module.css";
@@ -7,7 +7,7 @@ interface TasksProps {
     items: any;
     loading: boolean;
     error: string | null;
-    onFetch: (taskText: string) => void;
+    onFetch: (taskText?: string | undefined) => void;
 }
 
 const Tasks: FC<TasksProps> = (props) => {
@@ -17,7 +17,7 @@ const Tasks: FC<TasksProps> = (props) => {
         taskList = (
             <ul>
                 {props.items.map(
-                    (task: { id: React.Key | null | undefined; text: any }) => (
+                    (task: { id: React.Key | null | undefined, text: any }) => (
                         <TaskItem key={task.id}>{task.text}</TaskItem>
                     )
                 )}
