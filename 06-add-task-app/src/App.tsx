@@ -11,25 +11,18 @@ const requestConfig = {
 function App() {
     const [tasks, setTasks] = useState<any>([]);
 
-    const transformedTasks = (tasks: { [key: string]: { text: string } }) => {
-        console.log(tasks);
-        const loadedTasks = [];
-        for (const key in tasks) {
-            loadedTasks.push({ id: key, text: tasks[key].text });
-        }
-        console.log(loadedTasks);
-        setTasks(loadedTasks);
-    };
-
-    const {
-        isLoading,
-        error,
-        sendRequest: fetchTasks,
-    } = useHttp(requestConfig, transformedTasks);
+    const { isLoading, error, sendRequest: fetchTasks } = useHttp();
 
     useEffect(() => {
-        fetchTasks();
-    }, []);
+        const transformedTasks = (tasks: any) => {
+            const loadedTasks = [];
+            for (const key in tasks) {
+                loadedTasks.push({ id: key, text: tasks[key].text });
+            }
+            setTasks(loadedTasks);
+        };
+        fetchTasks(requestConfig, transformedTasks);
+    }, [fetchTasks]);
 
     const taskAddHandler = (task: any) => {
         setTasks((prevTasks: string | any[]) => prevTasks.concat(task));
@@ -42,7 +35,7 @@ function App() {
                 items={tasks}
                 loading={isLoading}
                 error={error}
-                onFetch={fetchTasks}
+                onFetch={() => fetchTasks}
             />
         </React.Fragment>
     );

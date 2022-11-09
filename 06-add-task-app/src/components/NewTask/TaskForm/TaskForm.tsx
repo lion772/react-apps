@@ -1,4 +1,10 @@
-import React, { FC, useRef } from "react";
+import React, {
+    DetailedHTMLProps,
+    FC,
+    InputHTMLAttributes,
+    MutableRefObject,
+    useRef,
+} from "react";
 import styles from "./TaskForm.module.css";
 
 interface TaskFormProps {
@@ -6,10 +12,8 @@ interface TaskFormProps {
     onEnterTask: (taskText: string) => void;
 }
 
-type TaskRef = HTMLInputElement | null;
-
 const TaskForm: FC<TaskFormProps> = (props) => {
-    let taskInputRef = useRef<TaskRef>(null);
+    let taskInputRef = useRef<HTMLInputElement>(null);
 
     const submitHandler = (event: { preventDefault: () => void }) => {
         event.preventDefault();
@@ -18,7 +22,9 @@ const TaskForm: FC<TaskFormProps> = (props) => {
 
         if (enteredValue && enteredValue.trim().length > 0) {
             props.onEnterTask(enteredValue);
-            //taskInputRef.current?.value = "";
+            if (taskInputRef.current) {
+                taskInputRef.current.value = "";
+            }
         }
     };
 
