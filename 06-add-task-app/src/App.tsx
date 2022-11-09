@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import NewTask from "./components/NewTask/NewTask";
+import Tasks from "./components/Tasks/Tasks";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+    const [tasks, setTasks] = useState<any>([]);
+
+    const fetchTasks = async (taskText: string) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(
+                "https://react-http-6b4a6.firebaseio.com/tasks.json"
+            );
+
+            if (!response.ok) {
+                throw new Error("Request failed!");
+            }
+
+            const data = await response.json();
+
+            const loadedTasks = [];
+
+            for (const taskKey in data) {
+                loadedTasks.push({ id: taskKey, text: data[taskKey].text });
+            }
+
+            setTasks(loadedTasks);
+        } catch (err) {
+            setError((err as Error).message || "Something went wrong!");
+        }
+        setIsLoading(false);
+    };
+
+    useEffect(() => {
+        fetchTasks("abacate");
+    }, []);
+
+    const taskAddHandler = (task: any) => {
+        setTasks((prevTasks: string | any[]) => prevTasks.concat(task));
+    };
+
+    return (
+        <React.Fragment>
+            <NewTask onAddTask={taskAddHandler} />
+            <Tasks
+                items={tasks}
+                loading={isLoading}
+                error={error}
+                onFetch={fetchTasks}
+            />
+        </React.Fragment>
+    );
 }
 
 export default App;
