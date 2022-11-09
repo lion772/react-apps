@@ -1,5 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
-import styles from "./use-http.module.css";
+import React, { useCallback, useState } from "react";
 
 type RequestConfig = {
     url: string;
