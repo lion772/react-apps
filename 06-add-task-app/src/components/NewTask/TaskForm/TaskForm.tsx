@@ -1,10 +1,4 @@
-import React, {
-    DetailedHTMLProps,
-    FC,
-    InputHTMLAttributes,
-    MutableRefObject,
-    useRef,
-} from "react";
+import React, { FC, useRef } from "react";
 import styles from "./TaskForm.module.css";
 
 interface TaskFormProps {
@@ -31,7 +25,9 @@ const TaskForm: FC<TaskFormProps> = (props) => {
     return (
         <form className={styles.form} onSubmit={submitHandler}>
             <input type="text" ref={taskInputRef} />
-            <button>{props.loading ? "Sending..." : "Add Task"}</button>
+            <button className={styles.button}>
+                {props.loading ? "Sending..." : "Add Task"}
+            </button>
         </form>
     );
 };
