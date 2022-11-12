@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import NewTask from "./components/NewTask/NewTask";
+import TaskItem from "./components/Tasks/TaskItem/TaskItem";
 import Tasks from "./components/Tasks/Tasks";
 import useHttp from "./hooks/use-http/use-http";
 
@@ -15,17 +16,22 @@ function App() {
 
     useEffect(() => {
         const transformedTasks = (tasks: any) => {
-            const loadedTasks = [];
+            let loadedTasks = [];
             for (const key in tasks) {
                 loadedTasks.push({ id: key, text: tasks[key].text });
             }
-            setTasks(loadedTasks);
+
+            setTasks(loadedTasks.reverse());
         };
         fetchTasks(requestConfig, transformedTasks);
     }, [fetchTasks]);
 
     const taskAddHandler = (task: any) => {
-        setTasks((prevTasks: string | any[]) => prevTasks.concat(task));
+        setTasks((prevTasks: any) => [
+            { id: task.id, text: task.text },
+            ...prevTasks,
+        ]);
+        //console.log(tasks);
     };
 
     return (

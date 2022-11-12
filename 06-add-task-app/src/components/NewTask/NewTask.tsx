@@ -1,4 +1,5 @@
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
+import useHttp from "../../hooks/use-http/use-http";
 import Section from "../UI/Section/Section";
 import TaskForm from "./TaskForm/TaskForm";
 
@@ -7,10 +8,40 @@ interface NewTaskProps {
 }
 
 const NewTask: FC<NewTaskProps> = (props) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const { isLoading, error, sendRequest: sendTaskRequest } = useHttp();
 
-    const enterTaskHandler = async (taskText: string) => {
+    const enterTaskHandler = (taskText: string) => {
+        if (taskText && taskText.trim().length > 0) {
+            const requestConfig = {
+                url: "https://react-http-movies-feb4c-default-rtdb.firebaseio.com/tasks.json",
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: { text: taskText },
+            };
+            sendTaskRequest(requestConfig, createTask.bind(null, taskText));
+        }
+    };
+
+    const createTask = (taskText: string, task: any) => {
+        console.log(task, taskText);
+        const generatedId = task.name; // firebase-specific => "name" contains generated id
+        const createdTask = { id: generatedId, text: taskText };
+        console.log(createdTask);
+
+        props.onAddTask(createdTask);
+    };
+
+    return (
+        <Section>
+            <TaskForm onEnterTask={enterTaskHandler} loading={isLoading} />
+            {error && <p>{error}</p>}
+        </Section>
+    );
+};
+
+export default NewTask;
+
+/* const enterTaskHandler = async (taskText: string) => {
         setIsLoading(true);
         setError(null);
         try {
@@ -40,14 +71,4 @@ const NewTask: FC<NewTaskProps> = (props) => {
             setError((err as Error).message || "Something went wrong!");
         }
         setIsLoading(false);
-    };
-
-    return (
-        <Section>
-            <TaskForm onEnterTask={enterTaskHandler} loading={isLoading} />
-            {error && <p>{error}</p>}
-        </Section>
-    );
-};
-
-export default NewTask;
+    }; */
