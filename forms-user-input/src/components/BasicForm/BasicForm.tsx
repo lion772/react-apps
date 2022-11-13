@@ -1,14 +1,20 @@
-import React, { FC, FormEvent, useState } from "react";
+import React, { FC, FormEvent, useEffect, useState } from "react";
 
 interface BasicFormProps {}
 
 const BasicForm: FC<BasicFormProps> = () => {
-    const [firstNameText, setFirstNameText] = useState<string>("");
-    const [lastNameText, setLastNameText] = useState<string>("");
-    const [emailText, setemailText] = useState<string>("");
+    const [firstNameText, setFirstNameText] = useState("");
+    const [lastNameText, setLastNameText] = useState("");
+    const [emailText, setemailText] = useState("");
     const [errorMessage, setErrorMessage] = useState<Array<string>>([]);
-    const [enteredNameIsValidated, setEnteredNameIsValidated] =
-        useState<boolean>(true);
+    const [enteredNameIsValidated, setEnteredNameIsValidated] = useState(false);
+    const [enteredNameTouched, setenteredNameTouched] = useState(false);
+
+    useEffect(() => {
+        if (enteredNameIsValidated) {
+            console.log("Inputs are valid!");
+        }
+    }, [enteredNameIsValidated]);
 
     const checkLengthString = (str: string) => str.trim() === "";
 
@@ -22,8 +28,10 @@ const BasicForm: FC<BasicFormProps> = () => {
         setemailText(e.currentTarget.value);
     };
 
-    const onSubmitHandler = (e: React.SyntheticEvent) => {
+    const onSubmitHandler = (e: React.SyntheticEvent): any => {
         e.preventDefault();
+        setenteredNameTouched(true);
+
         if (checkLengthString(firstNameText)) {
             setEnteredNameIsValidated(false);
 
@@ -57,16 +65,25 @@ const BasicForm: FC<BasicFormProps> = () => {
                     "Please enter a valid email.",
                 ]);
         }
-        //Create an object out of the strings
-        console.log(enteredNameIsValidated);
-        //reset values
-        setFirstNameText("");
-        setLastNameText("");
-        setemailText("");
+
+        if (
+            !checkLengthString(emailText) &&
+            !checkLengthString(emailText) &&
+            !checkLengthString(emailText)
+        ) {
+            setEnteredNameIsValidated(true);
+            //Create an object out of the strings
+            console.log(enteredNameIsValidated);
+            //reset values
+            setFirstNameText("");
+            setLastNameText("");
+            setemailText("");
+        }
     };
-    const nameInputClass = enteredNameIsValidated
-        ? "form-control"
-        : "form-control invalid";
+    const nameInputIsInvalid = !enteredNameIsValidated && enteredNameTouched;
+    const nameInputClass = nameInputIsInvalid
+        ? "form-control invalid"
+        : "form-control";
     return (
         <>
             <form onSubmit={onSubmitHandler}>
@@ -102,7 +119,7 @@ const BasicForm: FC<BasicFormProps> = () => {
                 <div className="form-actions">
                     <button>Submit</button>
                 </div>
-                {!enteredNameIsValidated &&
+                {nameInputIsInvalid &&
                     errorMessage.map((msg) => <h3>{msg}</h3>)}
             </form>
         </>
