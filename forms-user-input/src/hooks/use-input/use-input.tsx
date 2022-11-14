@@ -6,41 +6,38 @@ function displayErrorMsg(name: string): string {
 
 interface InputProps {
     inputName: string;
-    type: string;
     onChange: (nameEntered: string) => void;
     onBlur: (isBoolean: boolean) => void;
     onSubmitted: boolean;
-    onSubmitReset: (reset: boolean) => void;
+    onSubmitReset: () => void;
 }
 
 const UseInput: FC<InputProps> = (props) => {
     const { inputName, onSubmitReset, onSubmitted } = props;
-    const [enteredName, setEnteredName] = useState("");
-    const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+    const [enteredValue, setEnteredName] = useState("");
+    const [isTouched, setIsTouched] = useState(false);
 
-    const getReset = (resetName: any, resetTouch: boolean) => {};
-
-    const enteredNameIsValid =
+    const valueIsValid =
         inputName === "name"
-            ? enteredName.trim() !== ""
-            : enteredName.includes("@");
-    const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
+            ? enteredValue.trim() !== ""
+            : enteredValue.includes("@");
+    const nameInputIsInvalid = !valueIsValid && isTouched;
 
     useEffect(() => {
         if (onSubmitted) {
             setEnteredName("");
-            setEnteredNameTouched(false);
-            onSubmitReset(true);
+            setIsTouched(false);
+            onSubmitReset();
         }
-    }, [onSubmitted]);
+    }, [onSubmitReset, onSubmitted]);
 
-    const nameInputChangeHandler = (event: FormEvent<HTMLInputElement>) => {
+    const valueChangeHandler = (event: FormEvent<HTMLInputElement>) => {
         setEnteredName(event.currentTarget.value);
         props.onChange(event.currentTarget.value);
     };
 
-    const nameInputBlurHandler = (event: FormEvent<HTMLInputElement>) => {
-        setEnteredNameTouched(true);
+    const valueBlurHandler = (event: FormEvent<HTMLInputElement>) => {
+        setIsTouched(true);
         props.onBlur(true);
     };
 
@@ -54,13 +51,13 @@ const UseInput: FC<InputProps> = (props) => {
             <input
                 type={inputName === "name" ? "name" : "email"}
                 id={inputName}
-                onChange={nameInputChangeHandler}
-                onBlur={nameInputBlurHandler}
-                value={enteredName}
+                onChange={valueChangeHandler}
+                onBlur={valueBlurHandler}
+                value={enteredValue}
             />
-            {/* {nameInputIsInvalid && (
+            {nameInputIsInvalid && (
                 <p className="error-text">{`${displayErrorMsg(inputName)} `}</p>
-            )} */}
+            )}
         </div>
     );
 };

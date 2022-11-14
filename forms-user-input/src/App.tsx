@@ -1,13 +1,16 @@
 import React from "react";
 import "./App.css";
+import BasicForm from "./components/BasicForm/BasicForm";
 import EveryKeyStrokeForm from "./components/EveryKeyStrokeForm/EveryKeyStrokeForm";
+import SimpleInput from "./components/SimpleInput/SimpleInput";
 
 function App() {
     return (
         <div className="app">
-            {/* <BasicForm /> */}
+            <BasicForm />
             {/* <LoseFocusForm /> */}
-            <EveryKeyStrokeForm />
+            {/* <EveryKeyStrokeForm /> */}
+            {/* <SimpleInput /> */}
         </div>
     );
 }

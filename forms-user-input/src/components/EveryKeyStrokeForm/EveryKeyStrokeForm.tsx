@@ -1,28 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import UseInput from "../../hooks/use-input/use-input";
 
-const inputBlock = (
-    inputName: string,
-    enteredInput: string,
-    inputHandler: any,
-    inputBlurHandler: any,
-    inputClasses: string,
-    type: string
-) => {
-    return (
-        <div className={inputClasses}>
-            <label htmlFor={inputName}>Your {inputName}</label>
-            <input
-                type={type}
-                id={inputName}
-                onChange={inputHandler}
-                onBlur={inputBlurHandler}
-                value={enteredInput}
-            />
-        </div>
-    );
-};
-
 const SimpleInput = () => {
     const [enteredName, setEnteredName] = useState("");
     const [enteredEmail, setEnteredEmail] = useState("");
@@ -40,24 +18,15 @@ const SimpleInput = () => {
 
     const formSubmissionHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
-        /*  setEnteredNameTouched(true);
-        setEnteredEmailTouched(true); */
-
         if (!overallInputIsValid) {
             return;
         }
         console.log("overall input is valid!");
-        /*  setEnteredName("");
-        setEnteredEmail("");
-        setEnteredNameTouched(false);
-        setEnteredEmailTouched(false); */
         setIsSubmitted(true);
     };
 
-    const onSubmitReset = (resetNow: boolean) => {
-        if (resetNow) {
-            setIsSubmitted(false);
-        }
+    const onSubmitReset = () => {
+        setIsSubmitted(false);
     };
 
     const onChangeHandler = (type: string, nameEntered: string) => {
@@ -77,7 +46,6 @@ const SimpleInput = () => {
         <form onSubmit={formSubmissionHandler}>
             <UseInput
                 inputName={"name"}
-                type={"text"}
                 onChange={onChangeHandler.bind(null, "name")}
                 onBlur={onBlurHandler.bind(null, "name")}
                 onSubmitted={isSubmitted}
@@ -86,28 +54,12 @@ const SimpleInput = () => {
 
             <UseInput
                 inputName={"email"}
-                type={"email"}
                 onChange={onChangeHandler.bind(null, "email")}
                 onBlur={onBlurHandler.bind(null, "email")}
                 onSubmitted={isSubmitted}
                 onSubmitReset={onSubmitReset}
             />
-            {/* {inputBlock(
-                "name",
-                enteredName,
-                nameInputChangeHandler,
-                nameInputBlurHandler,
-                nameInputClasses,
-                "text"
-            )} */}
-            {/* {inputBlock(
-                "email",
-                enteredEmail,
-                emailInputChangeHandler,
-                emailInputBlurHandler,
-                emailInputClasses,
-                "email"
-            )} */}
+           
             {nameInputIsInvalid && (
                 <p className="error-text">Name must not be empty.</p>
             )}
