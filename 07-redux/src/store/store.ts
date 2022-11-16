@@ -7,6 +7,7 @@ type Action = {
     type: string;
     counter: number;
 };
+
 const counterReducer = (state: State = { counter: 0 }, action: Action) => {
     if (action.type === "increament") {
         return { counter: state.counter + 1 };
