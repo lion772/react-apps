@@ -21,7 +21,7 @@ const BasicForm = () => {
         valueChangeHandler: lastNameChangeHandler,
         inputBlurHandler: lastNameBlurHandler,
         reset: resetLastName,
-    } = useInput(isNotEmpty);
+    } = useInputRed(isNotEmpty);
     const {
         value: emailValue,
         isValid: emailIsValid,
