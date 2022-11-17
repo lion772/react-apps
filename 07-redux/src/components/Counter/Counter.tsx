@@ -19,7 +19,7 @@ const Counter: FC<CounterProps> = () => {
         dispatch(counterActions.increment(5));
     };
     const decrementHandler = () => {
-        dispatch(counterActions.decrement());
+        dispatch(counterActions.decrement(1));
     };
     const toggleCounterHandler = () => {
         dispatch(counterActions.hide());
