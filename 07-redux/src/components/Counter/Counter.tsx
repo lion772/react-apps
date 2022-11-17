@@ -4,6 +4,7 @@ import styles from "./Counter.module.css";
 
 type State = {
     counter: number;
+    isHidden: boolean;
 };
 
 interface CounterProps {}
@@ -11,6 +12,8 @@ interface CounterProps {}
 const Counter: FC<CounterProps> = () => {
     //useSelector automatically setup a subscripton for you to get the latest state whenever store is updated
     const counter = useSelector((state: State) => state.counter);
+    const isHidden = useSelector((state: State) => state.isHidden);
+
     const dispatch = useDispatch();
 
     const incrementHandler = () => {
@@ -23,12 +26,15 @@ const Counter: FC<CounterProps> = () => {
         dispatch({ type: "decrement", counter: 1 });
     };
 
-    const toggleCounterHandler = () => {};
+    const toggleCounterHandler = () => {
+        dispatch({ type: "hide" });
+    };
 
     return (
         <main className={styles.counter}>
             <h1>Redux Counter</h1>
-            <div className={styles.value}>{counter}</div>
+            {!isHidden && <div className={styles.value}>{counter}</div>}
+
             <div>
                 <button onClick={incrementHandler}>Increment</button>
                 <button onClick={incrementByFiveHandler}>
