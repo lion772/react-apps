@@ -1,14 +1,14 @@
 import React, { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { counterActions, counterState, State } from "../../store/store";
+import { counterActions } from "../../store/store";
 import styles from "./Counter.module.css";
 
 interface CounterProps {}
 
 const Counter: FC<CounterProps> = () => {
     //useSelector automatically setup a subscripton for you to get the latest state whenever store is updated
-    const counter = useSelector((state: State) => state.counter);
-    const isHidden = useSelector((state: State) => state.isHidden);
+    const counter = useSelector((state: any) => state.counter.counter);
+    const isHidden = useSelector((state: any) => state.counter.isHidden);
 
     const dispatch = useDispatch();
 
