@@ -1,11 +1,7 @@
-import React, { Component, Dispatch, FC } from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
+import React, { FC } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { counterActions, counterState, State } from "../../store/store";
 import styles from "./Counter.module.css";
-
-type State = {
-    counter: number;
-    isHidden: boolean;
-};
 
 interface CounterProps {}
 
@@ -17,17 +13,16 @@ const Counter: FC<CounterProps> = () => {
     const dispatch = useDispatch();
 
     const incrementHandler = () => {
-        dispatch({ type: "increment", counter: 1 });
+        dispatch(counterActions.increment(1));
     };
     const incrementByFiveHandler = () => {
-        dispatch({ type: "increment", counter: 5 });
+        dispatch(counterActions.increment(5));
     };
     const decrementHandler = () => {
-        dispatch({ type: "decrement", counter: 1 });
+        dispatch(counterActions.decrement());
     };
-
     const toggleCounterHandler = () => {
-        dispatch({ type: "hide" });
+        dispatch(counterActions.hide());
     };
 
     return (
