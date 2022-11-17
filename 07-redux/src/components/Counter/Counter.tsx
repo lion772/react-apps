@@ -14,10 +14,13 @@ const Counter: FC<CounterProps> = () => {
     const dispatch = useDispatch();
 
     const incrementHandler = () => {
-        dispatch({ type: "increment" });
+        dispatch({ type: "increment", counter: 1 });
+    };
+    const incrementByFiveHandler = () => {
+        dispatch({ type: "increment", counter: 5 });
     };
     const decrementHandler = () => {
-        dispatch({ type: "decrement" });
+        dispatch({ type: "decrement", counter: 1 });
     };
 
     const toggleCounterHandler = () => {};
@@ -28,6 +31,9 @@ const Counter: FC<CounterProps> = () => {
             <div className={styles.value}>{counter}</div>
             <div>
                 <button onClick={incrementHandler}>Increment</button>
+                <button onClick={incrementByFiveHandler}>
+                    Increment by five
+                </button>
                 <button onClick={decrementHandler}>Decrement</button>
             </div>
             <button onClick={toggleCounterHandler}>Toggle Counter</button>

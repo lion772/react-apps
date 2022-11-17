@@ -10,10 +10,10 @@ type Action = {
 
 const counterReducer = (state: State = { counter: 0 }, action: Action) => {
     if (action.type === "increment") {
-        return { counter: state.counter + 1 };
+        return { counter: state.counter + action.counter };
     }
     if (action.type === "decrement") {
-        return { counter: state.counter - 1 };
+        return { counter: state.counter - action.counter };
     }
     return state;
 };
