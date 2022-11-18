@@ -5,7 +5,6 @@ import Card from "../../../UI/Card/Card";
 import styles from "./ProductItem.module.css";
 
 interface ProductItemProps {
-    key: Key;
     id: string;
     name: string;
     price: number;
@@ -15,32 +14,22 @@ interface ProductItemProps {
 }
 
 const ProductItem: FC<ProductItemProps> = (props) => {
-    console.log(props);
-    const product = {
-        id: props.id,
-        name: props.name,
-        price: props.price,
-        description: props.description,
-        quantity: props.quantity,
-        totalPrice: props.totalPrice,
-    };
-
     const dispatch = useDispatch();
 
     const onClickAddHandler = () => {
-        dispatch(cartActions.addItemToCart(product));
+        dispatch(cartActions.addItemToCart(props));
     };
 
     return (
         <li className={styles.item}>
             <Card>
                 <header>
-                    <h3>{product.name}</h3>
+                    <h3>{props.name}</h3>
                     <div className={styles.price}>
-                        ${product.price.toFixed(2)}
+                        ${props.price.toFixed(2)}
                     </div>
                 </header>
-                <p>{product.description}</p>
+                <p>{props.description}</p>
                 <div className={styles.actions}>
                     <button onClick={onClickAddHandler}>Add to Cart</button>
                 </div>
