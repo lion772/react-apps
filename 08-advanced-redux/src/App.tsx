@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Layout from "./components/Layout/Layout";
 import Cart from "./components/Cart/Cart";
-import Products from "./components/Products/Products";
+import Products from "./components/Shop/Products/Products";
 
 function App() {
   
