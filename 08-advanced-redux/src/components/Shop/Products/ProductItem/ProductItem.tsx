@@ -1,8 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, Key } from "react";
 import Card from "../../../UI/Card/Card";
 import styles from "./ProductItem.module.css";
 
 interface ProductItemProps {
+    key?: Key | undefined | null;
     title: string;
     price: number;
     description: string;
