@@ -1,25 +1,28 @@
 import React, { FC, Key } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styles from "./CartItem.module.css";
-import { cartActions, Item } from "../../../store/cart-slice";
+import { cartActions } from "../../../store/cart-slice";
 
 interface CartItemProps {
-    item: {
-        key?: Key | undefined | null;
-        id: string;
-        name: string;
-        quantity: number;
-        price: number;
-        totalPrice: number;
-        description: string;
-    };
+    key: Key;
+    id: string;
+    name: string;
+    price: number;
+    description: string;
+    quantity: number;
+    totalPrice: number;
 }
 
 const CartItem: FC<CartItemProps> = (props) => {
-    const { key, ...product } = props.item;
-    //const products = useSelector((state: any) => state.cart.items);
-    //const product = products.find((item: Item) => item.id === id);
-    //console.log(product);
+    const product = {
+        id: props.id,
+        name: props.name,
+        price: props.price,
+        description: props.description,
+        quantity: props.quantity,
+        totalPrice: props.totalPrice,
+    };
+    
     const dispatch = useDispatch();
 
     const onClickAddHandler = () => {

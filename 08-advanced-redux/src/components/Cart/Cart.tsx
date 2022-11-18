@@ -13,7 +13,7 @@ const Cart: FC<CartProps> = () => {
     const cardItem =
         products &&
         products.map((product: Item) => {
-            return <CartItem item={{ key: product.id, ...product }} />;
+            return <CartItem  key={product.id} {...product}  />;
         });
 
     return (
