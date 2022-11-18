@@ -1,5 +1,4 @@
 import React, { FC, Fragment, ReactNode } from "react";
-import styles from "./Layout.module.css";
 import MainHeader from "./MainHeader/MainHeader";
 
 interface LayoutProps {
