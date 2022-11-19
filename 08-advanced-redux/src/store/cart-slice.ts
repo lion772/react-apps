@@ -1,4 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { AnyAction, createSlice } from "@reduxjs/toolkit";
+import { AnyAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
+import { Dispatch } from "react";
+import { uiActions } from "./ui-slice";
 
 export type Item = {
     id: string;
@@ -45,7 +48,6 @@ const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-    
         replaceCart(state, action) {
             state.totalQuantity = action.payload.totalQuantity;
             state.items = action.payload.items;
@@ -91,6 +93,53 @@ const cartSlice = createSlice({
         },
     },
 });
+
+//Action creator thunk
+export const sendCartData = (cart: any) => {
+    return async (dispatch: any) => {
+        dispatch(
+            uiActions.showNotification({
+                status: "pending",
+                title: "Sending...",
+                message: "Sending cart data!",
+            })
+        );
+
+        const sendRequest = async () => {
+            const response = await fetch(
+                "https://react-http-movies-feb4c-default-rtdb.firebaseio.com/products-advanced-redux.json",
+                {
+                    method: "PUT",
+                    body: JSON.stringify(cart),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Sending cart data failed.");
+            }
+
+            dispatch(
+                uiActions.showNotification({
+                    status: "success",
+                    title: "Success!",
+                    message: "Sent cart data successfully!",
+                })
+            );
+        };
+
+        try {
+            await sendRequest();
+        } catch (error) {
+            dispatch(
+                uiActions.showNotification({
+                    status: "error",
+                    title: "Error!",
+                    message: "Sending cart data failed!",
+                })
+            );
+        }
+    };
+};
 
 export const cartActions = cartSlice.actions;
 
