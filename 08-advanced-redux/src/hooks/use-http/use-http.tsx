@@ -35,6 +35,10 @@ const useHttp = (): IUseHtpp => {
                 }
                 const data = await response.json();
                 applyData(data);
+<<<<<<< HEAD
+=======
+                //setTasks(loadedTasks);
+>>>>>>> c2c2b7664514fbeba63efa8247a56d0b6a26e2c1
             } catch (err) {
                 setError((err as Error).message || "Something went wrong!");
             }

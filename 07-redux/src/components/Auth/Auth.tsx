@@ -1,7 +1,7 @@
 import React, { FC, useRef } from "react";
 import styles from "./Auth.module.css";
 import { authActions } from "../../store/store";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 interface AuthProps {}
 
