@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import styles from "./Notification.module.css";
 
 interface NotificationProps {
-    status: string;
-    title: string;
-    message: string;
+    status: string | null;
+    title: string | null;
+    message: string | null;
 }
 
 const Notification: FC<NotificationProps> = (props) => {

@@ -16,12 +16,12 @@ interface ProductItemProps {
 
 const ProductItem: FC<ProductItemProps> = (props) => {
     const dispatch = useDispatch();
-    const { isLoading, error, sendRequest: sendProduct } = useHttp();
+    const { isLoading, error, sendRequest } = useHttp();
 
     const onClickAddHandler = () => {
         dispatch(cartActions.addItemToCart(props));
 
-       /*  const requestConfig = {
+        /*  const requestConfig = {
             url: "https://react-http-movies-feb4c-default-rtdb.firebaseio.com/products-advanced-redux.json",
             method: "POST",
             headers: { "Content-Type": "application/json" },
