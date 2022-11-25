@@ -1,20 +1,19 @@
 import React, { useRef, useState } from "react";
 
 import classes from "./AuthForm.module.css";
-import { API_KEY } from "../../utils/secrets.json";
+import { API_KEY } from "../../utils/secrets.js";
+import { signIn, signUp } from "../../utils/api";
 
 const AuthForm = () => {
     const [isLogin, setIsLogin] = useState(true);
     const emailInputRef = useRef<HTMLInputElement>(null);
     const passwordInputRef = useRef<HTMLInputElement>(null);
 
-    console.log(API_KEY);
-
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
     };
 
-    const submitHandler = (e: React.SyntheticEvent) => {
+    const submitHandler = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         const enteredEmail = emailInputRef.current?.value;
@@ -23,25 +22,24 @@ const AuthForm = () => {
         //optional: add validation
 
         if (isLogin) {
+            try {
+                await signIn(enteredEmail, enteredPassword);
+            } catch (error) {
+                throw new Error((error as Error).message);
+            }
         } else {
-            fetch(
-                `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=[API_KEY]`,
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        email: enteredEmail,
-                        password: passwordInputRef,
-                    }),
-                }
-            );
+            try {
+                await signUp(enteredEmail, enteredPassword);
+            } catch (error) {
+                throw new Error((error as Error).message);
+            }
         }
     };
 
     return (
         <section className={classes.auth}>
             <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-            <form>
+            <form onSubmit={submitHandler}>
                 <div className={classes.control}>
                     <label htmlFor="email">Your Email</label>
                     <input
