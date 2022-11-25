@@ -7,7 +7,12 @@ export default SignInPage;
 
 export async function actionSignIn({ request }: { request: any }) {
     const data = await request.formData();
-    console.log(request);
-    const responseJson = await signIn(data.get("email"), data.get("password"));
-    console.log(responseJson);
+    const validationError = await signIn(
+        data.get("email"),
+        data.get("password")
+    );
+    if (validationError) {
+        return validationError;
+    }
+    console.log(validationError);
 }

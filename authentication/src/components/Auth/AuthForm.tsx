@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-
 import classes from "./AuthForm.module.css";
 import { signIn, signUp } from "../../utils/api";
 import { Form } from "react-router-dom";

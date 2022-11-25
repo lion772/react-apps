@@ -12,5 +12,12 @@ export default AuthPage;
 
 export async function actionSignUp({ request }: { request: any }) {
     const data = await request.formData();
-    const responseJson = await signUp(data.get("email"), data.get("password"));
+    const validationError = await signUp(
+        data.get("email"),
+        data.get("password")
+    );
+    if (validationError) {
+        return validationError;
+    }
+    console.log(validationError);
 }

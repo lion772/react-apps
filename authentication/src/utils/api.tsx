@@ -12,14 +12,12 @@ export async function signUp(email: Credential, password: Credential) {
         }
     );
 
-    console.log(response);
-
-    if (!response.ok) {
-        throw new Error("An error occured");
-    }
     const data = await response.json();
 
-    console.log(data);
+    if (!response.ok) {
+        console.log(data.error.message);
+        throw new Error(data.error.message || "An error occurred.");
+    }
 
     return data;
 }
@@ -34,14 +32,12 @@ export async function signIn(email: Credential, password: Credential) {
         }
     );
 
-    console.log(response);
-
-    if (!response.ok) {
-        throw new Error("An error occured");
-    }
     const data = await response.json();
 
-    console.log(data);
+    if (!response.ok) {
+        console.log(data.error.message);
+        throw new Error(data.error.message || "An error occurred.");
+    }
 
     return data;
 }
