@@ -1,13 +1,12 @@
-import React, { FC } from "react";
 import { Outlet } from "react-router";
+import MainNavigation from "../../components/Layout/MainNavigation";
 
-interface LayoutProps {}
-
-const Layout: FC<LayoutProps> = () => {
+const Layout = () => {
     return (
-        <div>
+        <>
+            <MainNavigation />
             <Outlet />
-        </div>
+        </>
     );
 };
 
