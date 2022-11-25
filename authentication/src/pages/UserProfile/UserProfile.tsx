@@ -1,12 +1,9 @@
-import React, { FC } from 'react';
-import styles from './UserProfile.module.css';
+import React, { FC } from "react";
 
 interface UserProfileProps {}
 
-const UserProfile: FC<UserProfileProps> = () => (
-  <div className={styles.UserProfile}>
-    UserProfile Component
-  </div>
-);
+const UserProfile: FC<UserProfileProps> = () => {
+    return <UserProfile />;
+};
 
 export default UserProfile;

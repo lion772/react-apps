@@ -1,12 +1,10 @@
-import React, { FC } from 'react';
-import styles from './HomePage.module.css';
+import React, { FC } from "react";
+import StartingPageContent from "../../components/StartingPage/StartingPageContent";
 
 interface HomePageProps {}
 
-const HomePage: FC<HomePageProps> = () => (
-  <div className={styles.HomePage}>
-    HomePage Component
-  </div>
-);
+const HomePage: FC<HomePageProps> = () => {
+  return <StartingPageContent />;
+};
 
 export default HomePage;
