@@ -9,9 +9,10 @@ export type Item = {
     description: string;
 };
 
-export type State = {
+export type CartState = {
     items: Item[];
     totalQuantity: number;
+    changed: boolean;
 };
 
 export type CartAction = {
@@ -22,6 +23,7 @@ export type CartAction = {
 export const initialState = {
     items: [] as Array<Item>,
     totalQuantity: 0,
+    changed: false,
 };
 
 const cartSlice = createSlice({
@@ -38,13 +40,13 @@ const cartSlice = createSlice({
             state.totalQuantity = action.payload.totalQuantity;
             state.items = action.payload.items;
         },
-        addItemToCart(state: State, action: CartAction) {
+        addItemToCart(state: CartState, action: CartAction) {
             const newItem = action.payload;
             const existingItem = state.items.find(
                 (item) => item.id === newItem.id
             );
             state.totalQuantity++;
-
+            state.changed = true;
             if (!existingItem) {
                 state.items.push({
                     id: newItem.id,
@@ -61,12 +63,13 @@ const cartSlice = createSlice({
             }
         },
         removeItemFromCart(
-            state: State,
+            state: CartState,
             action: { type: string; payload: string }
         ) {
             const id = action.payload;
             const existingItem = state.items.find((item) => item.id === id);
             state.totalQuantity--;
+            state.changed = true;
             if (existingItem && existingItem?.quantity === 1) {
                 state.items = state.items.filter((item) => item.id !== id);
             } else {

@@ -11,7 +11,7 @@ export const fetchCartData = () => {
             })
         );
 
-        const sendRequest = async () => {
+        const fetchData = async () => {
             const response = await fetch(
                 "https://react-http-movies-feb4c-default-rtdb.firebaseio.com/products-advanced-redux.json"
             );
@@ -33,7 +33,7 @@ export const fetchCartData = () => {
         };
 
         try {
-            await sendRequest();
+            await fetchData();
         } catch (error) {
             dispatch(
                 uiActions.showNotification({
@@ -58,11 +58,12 @@ export const sendCartData = (cart: any) => {
         );
 
         const sendRequest = async () => {
+            const { changed, ...cartFiltered } = cart;
             const response = await fetch(
                 "https://react-http-movies-feb4c-default-rtdb.firebaseio.com/products-advanced-redux.json",
                 {
                     method: "PUT",
-                    body: JSON.stringify(cart),
+                    body: JSON.stringify(cartFiltered),
                 }
             );
 
