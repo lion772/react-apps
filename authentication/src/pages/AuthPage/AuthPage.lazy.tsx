@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 
 const LazyAuthPage = lazy(() => import("./AuthPage"));
 
-const AuthForm = (
+const AuthPage = (
     props: JSX.IntrinsicAttributes & { children?: React.ReactNode }
 ) => (
     <Suspense fallback={<p>Loading...</p>}>
@@ -10,4 +10,4 @@ const AuthForm = (
     </Suspense>
 );
 
-export default AuthForm;
+export default AuthPage;

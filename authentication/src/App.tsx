@@ -5,7 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
 import AuthPage from "./pages/AuthPage/AuthPage";
-import UserProfile from "./pages/UserProfile/UserProfile";
+import UserProfile from "./components/Profile/UserProfile";
 
 const router = createBrowserRouter(
     createRoutesFromElements(

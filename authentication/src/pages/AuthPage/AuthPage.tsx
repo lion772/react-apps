@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import AuthForm from "./AuthPage.lazy";
+import AuthForm from "../../components/Auth/AuthForm";
 
 interface AuthPageProps {}
 
