@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 
 import classes from "./AuthForm.module.css";
-import { API_KEY } from "../../utils/secrets.js";
 import { signIn, signUp } from "../../utils/api";
+import { Form } from "react-router-dom";
 
 const AuthForm = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -39,7 +39,7 @@ const AuthForm = () => {
     return (
         <section className={classes.auth}>
             <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-            <form onSubmit={submitHandler}>
+            <Form method={"post"} action={isLogin ? "/sign-in" : "/auth"}>
                 <div className={classes.control}>
                     <label htmlFor="email">Your Email</label>
                     <input
@@ -72,7 +72,7 @@ const AuthForm = () => {
                             : "Login with existing account"}
                     </button>
                 </div>
-            </form>
+            </Form>
         </section>
     );
 };
