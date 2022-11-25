@@ -1,39 +1,82 @@
-import { useState } from 'react';
+import React, { useRef, useState } from "react";
 
-import classes from './AuthForm.module.css';
+import classes from "./AuthForm.module.css";
+import { API_KEY } from "../../utils/secrets.json";
 
 const AuthForm = () => {
-  const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(true);
+    const emailInputRef = useRef<HTMLInputElement>(null);
+    const passwordInputRef = useRef<HTMLInputElement>(null);
 
-  const switchAuthModeHandler = () => {
-    setIsLogin((prevState) => !prevState);
-  };
+    console.log(API_KEY);
 
-  return (
-    <section className={classes.auth}>
-      <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form>
-        <div className={classes.control}>
-          <label htmlFor='email'>Your Email</label>
-          <input type='email' id='email' required />
-        </div>
-        <div className={classes.control}>
-          <label htmlFor='password'>Your Password</label>
-          <input type='password' id='password' required />
-        </div>
-        <div className={classes.actions}>
-          <button>{isLogin ? 'Login' : 'Create Account'}</button>
-          <button
-            type='button'
-            className={classes.toggle}
-            onClick={switchAuthModeHandler}
-          >
-            {isLogin ? 'Create new account' : 'Login with existing account'}
-          </button>
-        </div>
-      </form>
-    </section>
-  );
+    const switchAuthModeHandler = () => {
+        setIsLogin((prevState) => !prevState);
+    };
+
+    const submitHandler = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+
+        const enteredEmail = emailInputRef.current?.value;
+        const enteredPassword = passwordInputRef.current?.value;
+
+        //optional: add validation
+
+        if (isLogin) {
+        } else {
+            fetch(
+                `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=[API_KEY]`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email: enteredEmail,
+                        password: passwordInputRef,
+                    }),
+                }
+            );
+        }
+    };
+
+    return (
+        <section className={classes.auth}>
+            <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+            <form>
+                <div className={classes.control}>
+                    <label htmlFor="email">Your Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        ref={emailInputRef}
+                        required
+                    />
+                </div>
+                <div className={classes.control}>
+                    <label htmlFor="password">Your Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        ref={passwordInputRef}
+                        required
+                    />
+                </div>
+                <div className={classes.actions}>
+                    <button>{isLogin ? "Login" : "Create Account"}</button>
+                    <button
+                        type="button"
+                        className={classes.toggle}
+                        onClick={switchAuthModeHandler}
+                    >
+                        {isLogin
+                            ? "Create new account"
+                            : "Login with existing account"}
+                    </button>
+                </div>
+            </form>
+        </section>
+    );
 };
 
 export default AuthForm;
