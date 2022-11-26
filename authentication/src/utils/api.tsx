@@ -41,3 +41,27 @@ export async function signIn(email: Credential, password: Credential) {
 
     return data;
 }
+
+export async function changePassword(idToken: string, password: Credential) {
+    const response = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${API_KEY}`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idToken,
+                password,
+                returnSecureToken: true,
+            }),
+        }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        console.log(data.error.message);
+        return { error: true, message: data.error.message };
+    }
+
+    return data;
+}

@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import classes from "./AuthForm.module.css";
-import { signIn, signUp } from "../../utils/api";
 import { Form } from "react-router-dom";
 
 const AuthForm = () => {
@@ -12,7 +11,7 @@ const AuthForm = () => {
         setIsLogin((prevState) => !prevState);
     };
 
-    const submitHandler = async (e: React.SyntheticEvent) => {
+    /* const submitHandler = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         const enteredEmail = emailInputRef.current?.value;
@@ -33,7 +32,7 @@ const AuthForm = () => {
                 throw new Error((error as Error).message);
             }
         }
-    };
+    }; */
 
     return (
         <section className={classes.auth}>
