@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { useDispatch } from "react-redux";
+import Card from "../../UI/Card/Card";
 import styles from "./ProductItem.module.css";
 
 interface ProductItemProps {
