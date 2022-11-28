@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import ProductItem from "../../components/ProductItem/ProductItem.lazy";
+import ProductItem from "../../components/Products/ProductItem/ProductItem.lazy";
 import styles from "./Products.module.css";
 
 interface ProductsProps {}
