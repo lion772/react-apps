@@ -4,7 +4,7 @@ const LazyProductItem = lazy(() => import('./ProductItem'));
 
 const ProductItem = (props: JSX.IntrinsicAttributes & { children?: React.ReactNode; }) => (
   <Suspense fallback={null}>
-    <LazyProductItem {...props} />
+    <LazyProductItem id={''} isFavorite={false} description={''} title={''} {...props} />
   </Suspense>
 );
 

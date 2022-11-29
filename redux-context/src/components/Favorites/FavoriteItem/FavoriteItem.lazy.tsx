@@ -4,7 +4,7 @@ const LazyFavoriteItem = lazy(() => import('./FavoriteItem'));
 
 const FavoriteItem = (props: JSX.IntrinsicAttributes & { children?: React.ReactNode; }) => (
   <Suspense fallback={null}>
-    <LazyFavoriteItem {...props} />
+    <LazyFavoriteItem id={''} title={''} description={''} {...props} />
   </Suspense>
 );
 

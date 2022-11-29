@@ -1,24 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Product } from "../../App";
 import FavoriteItem from "../../components/Favorites/FavoriteItem/FavoriteItem";
 
-import "./Products.css";
-
-const Favorites = (props) => {
-    const favoriteProducts = useSelector((state) =>
-        state.shop.products.filter((p) => p.isFavorite)
+const Favorites = () => {
+    const favoriteProducts = useSelector((state: any) =>
+        state.shop.products.filter((p: Product) => p.isFavorite)
     );
     let content = <p className="placeholder">Got no favorites yet!</p>;
     if (favoriteProducts.length > 0) {
         content = (
             <ul className="products-list">
-                {favoriteProducts.map((prod) => (
-                    <FavoriteItem
-                        key={prod.id}
-                        id={prod.id}
-                        title={prod.title}
-                        description={prod.description}
-                    />
+                {favoriteProducts.map((prod: Product) => (
+                    <FavoriteItem key={prod.id} {...prod} />
                 ))}
             </ul>
         );

@@ -3,6 +3,7 @@ import Card from "../../UI/Card/Card";
 import styles from "./FavoriteItem.module.css";
 
 interface FavoriteItemProps {
+    id: string;
     title: string;
     description: string;
 }

@@ -2,8 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Navigation.module.css";
 
-import "./Navigation.css";
-
 const Navigation = () => {
     return (
         <header className={styles["main-header"]}>

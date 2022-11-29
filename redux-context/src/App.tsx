@@ -4,6 +4,14 @@ import "./App.css";
 import Navigation from "./components/Navigation/Navigation.lazy";
 import ProductsPage from "./containers/Products/Products";
 import FavoritesPage from "./containers/Favorites/Favorites";
+
+export type Product = {
+    title: string;
+    id: string;
+    description: string;
+    isFavorite: boolean;
+};
+
 function App() {
     return (
         <>
