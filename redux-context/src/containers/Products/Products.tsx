@@ -1,13 +1,13 @@
-import React, { FC } from "react";
-import { useSelector } from "react-redux";
+import React, { FC, useContext } from "react";
 import { Product } from "../../App";
 import ProductItem from "../../components/Products/ProductItem/ProductItem";
+import { ProductsContext } from "../../context/products-context";
 import styles from "./Products.module.css";
 
 interface ProductsProps {}
 
 const Products: FC<ProductsProps> = () => {
-    const productList = useSelector((state: any) => state.shop.products);
+    const { products: productList } = useContext(ProductsContext);
 
     let content;
     if (productList.length > 0) {

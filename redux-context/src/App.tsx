@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route } from "react-router-dom";
 import "./App.css";
 import Navigation from "./components/Navigation/Navigation.lazy";
 import ProductsPage from "./containers/Products/Products";
 import FavoritesPage from "./containers/Favorites/Favorites";
+import { ProductsContext } from "./context/products-context";
 
 export type Product = {
     title: string;
@@ -13,6 +14,8 @@ export type Product = {
 };
 
 function App() {
+    const appCtx = useContext(ProductsContext);
+    console.log(appCtx);
     return (
         <>
             <Navigation />
