@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
+import { ProductsContext } from "../../../context/products-context";
 import Card from "../../UI/Card/Card";
 import styles from "./ProductItem.module.css";
 
@@ -10,7 +11,12 @@ interface ProductItemProps {
 }
 
 const ProductItem: FC<ProductItemProps> = (props) => {
-    const toggleFavHandler = () => {};
+    const { toggleFav } = useContext(ProductsContext);
+
+    const toggleFavHandler = () => {
+        toggleFav(props.id);
+    };
+
     return (
         <Card style={{ marginBottom: "1rem" }}>
             <div className={styles["product-item"]}>

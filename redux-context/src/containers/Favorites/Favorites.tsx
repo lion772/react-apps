@@ -1,13 +1,17 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
 import { Product } from "../../App";
 import FavoriteItem from "../../components/Favorites/FavoriteItem/FavoriteItem";
+import { ProductsContext } from "../../context/products-context";
 
 const Favorites = () => {
-    const favoriteProducts = useSelector((state: any) =>
-        state.shop.products.filter((p: Product) => p.isFavorite)
+    const { products: productList } = useContext(ProductsContext);
+    const favoriteProducts = productList.filter(
+        (product: Product) => product.isFavorite
     );
-    let content = <p className="placeholder">Got no favorites yet!</p>;
+    console.log(favoriteProducts);
+    let content: JSX.Element = (
+        <p className="placeholder">Got no favorites yet!</p>
+    );
     if (favoriteProducts.length > 0) {
         content = (
             <ul className="products-list">

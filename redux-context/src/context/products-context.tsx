@@ -41,9 +41,21 @@ const ProductsContextProvider: FC<PropsWithChildren> = ({ children }) => {
         defaultInitialValue["products"]
     );
 
-    const toggleFavorite = (id: string) => {};
+    const toggleFav = (id: string) => {
+        setProductList((currentProductList: Product[]) => {
+            const prodIndex = currentProductList.findIndex((p) => p.id === id);
+            const newFavStatus = !currentProductList[prodIndex].isFavorite;
+            const updatedProducts = [...currentProductList];
 
-    const value = { products: productList, toggleFav: toggleFavorite };
+            updatedProducts[prodIndex] = {
+                ...currentProductList[prodIndex],
+                isFavorite: newFavStatus,
+            };
+            return updatedProducts;
+        });
+    };
+
+    const value = { products: productList, toggleFav };
 
     return (
         <ProductsContext.Provider value={value}>

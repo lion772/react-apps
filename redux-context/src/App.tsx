@@ -14,8 +14,6 @@ export type Product = {
 };
 
 function App() {
-    const appCtx = useContext(ProductsContext);
-    console.log(appCtx);
     return (
         <>
             <Navigation />
