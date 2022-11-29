@@ -5,9 +5,9 @@ import FavoriteItem from "../../components/Favorites/FavoriteItem/FavoriteItem";
 import "./Products.css";
 
 const Favorites = (props) => {
-    /* const favoriteProducts = useSelector((state) =>
+    const favoriteProducts = useSelector((state) =>
         state.shop.products.filter((p) => p.isFavorite)
-    ); */
+    );
     let content = <p className="placeholder">Got no favorites yet!</p>;
     if (favoriteProducts.length > 0) {
         content = (
