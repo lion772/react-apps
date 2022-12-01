@@ -1,8 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { shallow, mount } from "enzyme";
 import Greeting from "./Greeting";
-import Adapter from "enzyme-adapter-react-15";
+import userEvent from "@testing-library/user-event";
 
 describe("Greeting component", () => {
     test("Renders Hello World as a text", () => {
@@ -26,16 +25,29 @@ describe("Greeting component", () => {
 
     test("Check whether text has changed upon a button click", () => {
         //Arrange
-        let wrapper = mount(<Greeting />);
+        render(<Greeting />);
 
         //Action
-        const setState = jest.fn();
-        const useStateSpy = jest.spyOn(React, "useState");
+        const btnElement = screen.getByRole("button");
+        userEvent.click(btnElement);
 
-        useStateSpy.mockImplementation((init) => [init, setState]);
-        const button = wrapper.find("button");
-        button.simulate("click");
-        expect(setState).toHaveBeenCalled(1);
+        //Assert
+        const pElement = screen.getByText(/changed/i);
+        expect(pElement).toBeInTheDocument();
+    });
+
+    test("Check whether conditional text has disappeared upon a button click", () => {
+        //Arrange
+        render(<Greeting />);
+
+        //Action
+        const btnElement = screen.getByRole("button");
+        userEvent.click(btnElement);
+
+        //Assert
+        const pElement = screen.queryByText(/it's good to see you/i);
+        expect(pElement).toBeNull();
+        //expect(pElement).not.toBeInTheDocument();
     });
 });
 
